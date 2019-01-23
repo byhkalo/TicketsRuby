@@ -1,10 +1,16 @@
 class TicketsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    if current_user.nil?
+      @tickets = Ticket.all
+    else 
+      @tickets = current_user.tickets
+    end
   end
 
   # GET /tickets/1
@@ -14,7 +20,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
+    @ticket = Ticket.new(:user_id=>current_user.id)
     @events = Event.all
   end
 
@@ -27,7 +33,7 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-
+    @events = Event.all
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
@@ -67,10 +73,15 @@ class TicketsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params[:id])
+      @events = Event.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:name, :seat_id_seq, :address, :price, :email_address, :phone, :event_id)
+      params.require(:ticket).permit(:name, :seat_id_seq, :address, :price, :email_address, :phone, :event_id, :user_id)
+    end
+    def correct_user
+      @ticket = current_user.tickets.find_by(id: params[:id])
+      redirect_to tickets_path, notice: "Nie jesteś uprawniony do edycji tego biletu" if @ticket.nil?
     end
 end

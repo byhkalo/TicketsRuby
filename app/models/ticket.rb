@@ -16,6 +16,8 @@ class Ticket < ApplicationRecord
 	validates :email_address, presence: true
 	validates :price, presence: true
 	validates :event_id, presence: true
+	validates :user_id, presence: true
 	belongs_to :event
+	belongs_to :user
 	# validates_with TicketModelValidator
 end

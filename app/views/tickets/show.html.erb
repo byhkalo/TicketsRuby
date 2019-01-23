@@ -35,6 +35,16 @@
   <%= @ticket.event_id %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<p>
+  <strong>User_ID:</strong>
+  <%= @ticket.user_id %>
+</p>
+
+
+<% if @ticket.user == current_user %>
+  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<% end %>
+
+  
 <%= link_to 'Back', tickets_path %>
 

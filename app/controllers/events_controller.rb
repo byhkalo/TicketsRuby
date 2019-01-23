@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @tickets =  Ticket.where(event_id: @event.id)
+    @tickets = Ticket.where(event_id: @event.id)
   end
 
   def new
