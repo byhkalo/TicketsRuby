@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Artist:</strong>
+  <%= @event.artist %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<p>
+  <strong>Price Low:</strong>
+  <%= @event.price_low %>
+</p>
+
+<p>
+  <strong>Price Hight:</strong>
+  <%= @event.price_hight %>
+</p>
+
+<p>
+  <strong>Event Date:</strong>
+  <%= @event.event_date %>
+</p>
+
+<%= link_to 'Back to events', events_path %>
+
+<p>
+  <strong> Buy New ticket!!! </strong>
+  <%= render 'new_ticket', ticket: Ticket.new(:event_id=>@event.id)  %>
+</p>
+
+<p>
+  <strong> All tickets list </strong>
+  <%= render "tickets_list", tickets: @tickets %>
+</p>

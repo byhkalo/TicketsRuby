@@ -1,0 +1,7 @@
+<h1> All events</h1> 
+<ul>
+	<% for event in @events %>
+		<li><%= link_to event.artist, "/events/#{event.id}" %></li>
+	<% end %>
+</ul>
+<%= link_to 'Nowe new event', events_new_path %>

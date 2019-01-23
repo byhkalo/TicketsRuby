@@ -42,19 +42,11 @@
   </div>
 
   <div class="field">
-    <strong>Select Event</strong>
-    <%= form.collection_select :event_id, @events, :id, :artist, prompt: true %>
+    
+    <%= form.hidden_field :event_id %>
   </div>
-  
 
   <div class="actions">
     <%= form.submit %>
   </div>
-
-
 <% end %>
-
-
-
-
-

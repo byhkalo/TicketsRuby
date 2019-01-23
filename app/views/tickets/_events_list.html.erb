@@ -1,0 +1,6 @@
+<select id="event_list">
+	<% for event in @events %>
+		<option value=<%= event.id %>><%= event.artist %></option>
+	<% end %>
+
+</select>
